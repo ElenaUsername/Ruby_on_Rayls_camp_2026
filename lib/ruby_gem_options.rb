@@ -1,8 +1,8 @@
 require 'faraday'
 require 'json'
 
-require 'response_gem'
-require 'get_print_info'
+require_relative 'response_gem'
+require_relative 'get_print_info'
 
 class RubyGemOptions
   

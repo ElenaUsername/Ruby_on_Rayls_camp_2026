@@ -16,7 +16,6 @@ class CliParser
         # Help option
         opts.on("-h, --help","Display the help message") do
             options[:help] = true
-            puts parser
         end
     end
 
