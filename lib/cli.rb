@@ -15,7 +15,6 @@ elsif options[:search]
 elsif options[:help]
     puts("***HELP***\n")
     puts parser
-    exit 0
 else
     puts("***WARNING***\nNo Valid option was provided, please try again.")
     puts parser

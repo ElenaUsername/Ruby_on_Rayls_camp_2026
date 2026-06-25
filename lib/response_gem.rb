@@ -1,4 +1,3 @@
-
 require 'faraday'
 require 'json'
 
@@ -12,8 +11,10 @@ class ResponseGem
     return(0)
   end
 
-  def self.Fetch_url_response(url)
-    response = Faraday.get(url)
+  def self.Fetch_url_response(url, api_key)
+    response = Faraday.get(url) do |req|
+      req.headers['Authorization'] = "Bearer #{api_key}"
+    end
 
     if ResponseGem.verify_response_invalid(response) == 1
       return(1)

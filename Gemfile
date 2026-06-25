@@ -4,4 +4,5 @@ gem 'rspec', '>= 3.13.2'
 gem 'faraday'
 
 gem 'rubocop'
+gem 'dotenv'
 gem 'rubocop-rspec', require: false

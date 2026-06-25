@@ -18,6 +18,4 @@ RSpec.describe "RubyGemOptions" do
       expect(RubyGemOptions.search_gem_info("railssss")).to eq 1
     end
   end
-
-  
 end
