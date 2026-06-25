@@ -5,4 +5,5 @@ gem 'faraday'
 
 gem 'rubocop'
 gem 'dotenv'
+gem 'lightly'
 gem 'rubocop-rspec', require: false
