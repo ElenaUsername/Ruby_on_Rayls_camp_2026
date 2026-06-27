@@ -28,7 +28,27 @@ class RubyGemOptions
     return 1 if cached_data == 1
     data = JSON.parse(cached_data)
     return 1 if data.empty?
+    
+    # RubyGemOptions.filter_by(next_arg, license_name)
+
+
     GetPrintInfo.print_name_info_list(data)
     return data
+
   end
+ 
+  # def self.filter_by(next_arg, license_name)
+  #   if next_arg = "--licence"
+  #     return 1 if !next_arg.nil?
+        
+  #     data = data.select do |gem| 
+  #       gem['licenses'] && gem['licenses'].map(&:upcase).include?(options[license_name].upcase)
+  #     end
+  #   end
+
+  #   if next_arg = = "--licence"
+  #     #to implement dowload
+  #   end
+  # end
+  
 end

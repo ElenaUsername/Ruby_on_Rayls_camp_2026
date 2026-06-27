@@ -1,7 +1,7 @@
 class GetPrintInfo
 
   def self.print_name_info(data_about_gem)
-    puts "Name: #{data_about_gem['name']} \nInfo: #{data_about_gem['info']}"
+    puts "#{data_about_gem['name']}: #{data_about_gem['info']}\n"
   end
 
   def self.print_name_info_list(data)

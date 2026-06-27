@@ -17,5 +17,19 @@ RSpec.describe "RubyGemOptions" do
     it "Expect error when gem does not exist" do
       expect(RubyGemOptions.search_gem_info("railssss")).to eq 1
     end
+    # it "The search result contains the licence a valid one" do
+    #   expect { RubyGemOptions.search_gem_info("rails", "--licence", "MIT") }.to output(/rails/).to_stdout
+    # end
+    # it "Expect error when gem does not exist" do
+    #   expect(RubyGemOptions.search_gem_info("railssss", "--licence", "MIT")).to eq 1
+    # end
+
+    # it "The search result contains a filter" do
+    #   expect {RubyGemOptions.search_gem_info("rails", "--most-downloads-first")}
+
+    # end
+
+
   end
+
 end

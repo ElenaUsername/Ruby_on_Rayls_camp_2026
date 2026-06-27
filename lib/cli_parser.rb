@@ -14,8 +14,8 @@ class CliParser
             options[:search] = keyword
         end
         # Help option
-        opts.on("-h, --help","Display the help message") do
-            options[:help] = true
+        opts.on("--opt_help","Display the opt_help message") do
+            options[:opt_help] = true
         end
     end
 

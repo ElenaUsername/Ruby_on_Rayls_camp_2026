@@ -1,8 +1,8 @@
 require 'uri'
 require 'optparse'
 
-require_relative '.lib/ruby_gem_options'
-require_relative '.lib/cli_parser'
+require_relative './lib/ruby_gem_options'
+require_relative './lib/cli_parser'
 
 options = CliParser.parse_options(ARGV)
 
@@ -12,7 +12,7 @@ if options[:show]
 elsif options[:search]
     puts("***SEARCH***\n")
     RubyGemOptions.search_gem_info(options[:search])
-elsif options[:help]
+elsif options[:opt_help]
     puts("***HELP***\n")
     puts parser
 else
