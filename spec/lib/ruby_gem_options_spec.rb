@@ -11,10 +11,10 @@ RSpec.describe "RubyGemOptions" do
   end
 
   context "Method search_gem_info" do
-    it "The search rezult should contain the introduced" do
+    it "The search result should contain the introduced" do
       expect { RubyGemOptions.search_gem_info("rails") }.to output(/rails/).to_stdout
     end
-    it "Return text about search" do
+    it "Expect error when gem does not exist" do
       expect(RubyGemOptions.search_gem_info("railssss")).to eq 1
     end
   end

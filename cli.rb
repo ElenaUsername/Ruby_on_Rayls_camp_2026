@@ -1,8 +1,8 @@
 require 'uri'
 require 'optparse'
 
-require_relative 'ruby_gem_options'
-require_relative 'cli_parser'
+require_relative '.lib/ruby_gem_options'
+require_relative '.lib/cli_parser'
 
 options = CliParser.parse_options(ARGV)
 
