@@ -1,22 +1,24 @@
 class CliParser
   def self.parse_options(argv)
-    options = {}
+
+    command_show_or_search = argv.shift
+    keyord_of_show_or_search = argv.shift
+
+    options = {
+      command_show_or_search: command_show_or_search,
+      keyord_of_show_or_search: keyord_of_show_or_search
+    }
 
     parser = OptionParser.new do |opts|
         opts.banner = "The options for this parser are:"
 
-        # Show option
-        opts.on("--show = NAME", "Show for gem information by introducing the gem name") do |name|
-            options[:show] = name
+        opts.on("--licence = licence_name", "Print the search result based on the licence") do |licence_name|
+            options[:licence] = licence_name
         end
-        # Search option
-        opts.on("--search = KEYWORD", "Search for the gems that contain the keyword") do |keyword|
-            options[:search] = keyword
+        opts.on("--most-downloads-first", "Print the search result based on the most downloads") do
+            options[:downloads] = true
         end
-        # Help option
-        opts.on("--opt_help","Display the opt_help message") do
-            options[:opt_help] = true
-        end
+
     end
 
     begin 

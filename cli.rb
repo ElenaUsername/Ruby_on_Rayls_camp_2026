@@ -4,20 +4,25 @@ require 'optparse'
 require_relative './lib/ruby_gem_options'
 require_relative './lib/cli_parser'
 
-options = CliParser.parse_options(ARGV)
+puts("Here are the arguments #{ARGV}")
 
-if options[:show]
+if ARGV[0] == "--show"
     puts("***SHOW***\n")
-    RubyGemOptions.show_gem_info(options[:show])
-elsif options[:search]
-    puts("***SEARCH***\n")
-    RubyGemOptions.search_gem_info(options[:search])
-elsif options[:opt_help]
-    puts("***HELP***\n")
-    puts parser
+    RubyGemOptions.show_gem_info(ARGV[1])
+elsif ARGV[0] == "--search"
+    puts("***SHOW***\n")
+    data = RubyGemOptions.search_gem_info(ARGV[1])
+    options = CliParser.parse_options(ARGV)
+
+    if options[:licence]
+        data = RubyGemOptions.filter_information_by_licence(data,options[:licence])
+    elsif options[:downloads]
+        data = RubyGemOptions.filter_information_by_downloads(data)
+    end
+    return data
+
 else
     puts("***WARNING***\nNo Valid option was provided, please try again.")
-    puts parser
     exit 1
 end
     

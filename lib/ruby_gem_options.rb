@@ -29,26 +29,30 @@ class RubyGemOptions
     data = JSON.parse(cached_data)
     return 1 if data.empty?
     
-    # RubyGemOptions.filter_by(next_arg, license_name)
-
+    # if !filter_information_by_arg.nil?
+    #   RubyGemOptions.filter_information_by(data, filter_information_by_arg, license_name)
+    # end
 
     GetPrintInfo.print_name_info_list(data)
     return data
 
   end
- 
-  # def self.filter_by(next_arg, license_name)
-  #   if next_arg = "--licence"
-  #     return 1 if !next_arg.nil?
-        
-  #     data = data.select do |gem| 
-  #       gem['licenses'] && gem['licenses'].map(&:upcase).include?(options[license_name].upcase)
-  #     end
-  #   end
 
-  #   if next_arg = = "--licence"
-  #     #to implement dowload
-  #   end
-  # end
+ 
+  def self.filter_information_by_licence(data, license_name)
+      return 1 if !license_name.nil?
+        
+      data = data.select do |gem| 
+        gem['licenses'] && gem['licenses'].map(&:upcase).include?(options[license_name].upcase)
+      end
+      return data
+  end
+
+  def self.filter_information_by_downloads(data)
+        
+      data =data.sort { |a, b| b[:downloads] <=> a[:downloads] }
+      return data
+  end
+
   
 end
