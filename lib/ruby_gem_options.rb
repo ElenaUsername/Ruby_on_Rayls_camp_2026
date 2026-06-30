@@ -28,24 +28,17 @@ class RubyGemOptions
     return 1 if cached_data == 1
     data = JSON.parse(cached_data)
     return 1 if data.empty?
-    
-    # if !filter_information_by_arg.nil?
-    #   RubyGemOptions.filter_information_by(data, filter_information_by_arg, license_name)
-    # end
 
-    GetPrintInfo.print_name_info_list(data)
     return data
 
   end
 
- 
   def self.filter_information_by_licence(data, license_name)
-      return 1 if !license_name.nil?
-        
-      data = data.select do |gem| 
-        gem['licenses'] && gem['licenses'].map(&:upcase).include?(options[license_name].upcase)
-      end
-      return data
+    return data || [] if license_name.nil?
+    
+    Array(data).select do |gem| 
+      gem['licenses']&.any? { |l| l.casecmp?(license_name) }
+    end
   end
 
   def self.filter_information_by_downloads(data)
