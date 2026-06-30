@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'json'
 
 class ResponseGem
   def self.verify_response_invalid(response)
     if response.status != 200
-          puts "Error: #{response.status} - #{response.reason_phrase}\n Please check the gem name and try again."
-          return(1)
-          exit 1
+      puts "Error: #{response.status} - #{response.reason_phrase}\n Please check the gem name and try again."
+      return 1
+      exit 1
     end
-    return(0)
+    0
   end
 
   def self.Fetch_url_response(url, api_key)
@@ -16,9 +18,8 @@ class ResponseGem
       req.headers['Authorization'] = "Bearer #{api_key}"
     end
 
-    if ResponseGem.verify_response_invalid(response) == 1
-      return(1)
-    end
-    return(response)
+    return 1 if ResponseGem.verify_response_invalid(response) == 1
+
+    response
   end
 end

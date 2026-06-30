@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'rspec', '>= 3.13.2'
 gem 'faraday'
+gem 'rspec', '>= 3.13.2'
 
-gem 'rubocop'
 gem 'dotenv'
 gem 'lightly'
+gem 'rubocop'
 gem 'rubocop-rspec', require: false
