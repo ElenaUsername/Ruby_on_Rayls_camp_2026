@@ -1,6 +1,6 @@
 Create a parser with three option
---search                    for the keyword in gem list
---show                      the information of the gem
+search                    for the keyword in gem list
+show                      the information of the gem
 --licence                   filter search result based on the licence
 --most-downloads-first      filter search result based on the most downloads
 
