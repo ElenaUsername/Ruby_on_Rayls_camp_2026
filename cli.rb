@@ -6,13 +6,15 @@ require 'optparse'
 require_relative './lib/ruby_gem_options'
 require_relative './lib/cli_parser'
 
-if ARGV[0] == 'show'
+options = CliParser.parse_options(ARGV)
+command = options[:command_show_or_search]
+keyword = options[:keyord_of_show_or_search]
+
+if command == 'show'
   puts("***SHOW***\n")
-  RubyGemOptions.show_gem_info(ARGV[1])
-elsif ARGV[0] == 'search'
+  RubyGemOptions.show_gem_info(keyword)
+elsif command == 'search'
   puts("***SEARCH***\n")
-  options = CliParser.parse_options(ARGV)
-  keyword = options[:keyord_of_show_or_search]
   data = RubyGemOptions.search_gem_info(keyword)
 
   if options[:licence]
