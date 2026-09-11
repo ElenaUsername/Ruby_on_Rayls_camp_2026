@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe 'GetPrintInfo' do
-  context 'Method print_name_info' do
+  context '.print_name_info' do
     it 'Should print the name and the info of a single gem' do
       data = {
         'name' => 'rails',
@@ -11,7 +11,7 @@ RSpec.describe 'GetPrintInfo' do
     end
   end
 
-  context 'Method print_name_info_list' do
+  context '.print_name_info_list' do
     it 'Should print the name and the info of multiple gems' do
       data = [
         {

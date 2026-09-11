@@ -7,8 +7,10 @@ RSpec.describe 'ResponseGem' do
     it 'Should return 0 if the url is valid' do
       expect(ResponseGem.verify_response_invalid(Faraday.get('https://rubygems.org/api/v1/gems/rails.json'))).to eq 0
     end
-    it 'Should return 1 if the url is invalid' do
-      expect(ResponseGem.verify_response_invalid(Faraday.get('https://rubygems.org/api/v1/gems/railsss.json'))).to eq 1
+    it 'Raises an error if the url is invalid' do
+      expect do
+        ResponseGem.verify_response_invalid(Faraday.get('https://rubygems.org/api/v1/gems/railsss.json'))
+      end.to raise_error(ResponseGem::GemApiError)
     end
   end
 end

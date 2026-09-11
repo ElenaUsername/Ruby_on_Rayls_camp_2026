@@ -12,7 +12,6 @@ class RubyGemOptions
 
   def self.show_gem_info(gem_name)
     response = ResponseGem.fetch_url_response("https://rubygems.org/api/v1/gems/#{gem_name}.json")
-    return 1 if response == 1
 
     data = JSON.parse(response.body)
     GetPrintInfo.print_name_info(data)
@@ -22,15 +21,12 @@ class RubyGemOptions
   def self.search_gem_info(keyword)
     cached_data = @cache.get("search_#{keyword}") do
       response = ResponseGem.fetch_url_response("https://rubygems.org/api/v1/search.json?query=#{keyword}")
-      return 1 if response == 1
 
       response.body
     end
 
-    return 1 if cached_data == 1
-
     data = JSON.parse(cached_data)
-    return 1 if data.empty?
+    raise ResponseGem::GemApiError, "No gems found for '#{keyword}'" if data.empty?
 
     data
   end

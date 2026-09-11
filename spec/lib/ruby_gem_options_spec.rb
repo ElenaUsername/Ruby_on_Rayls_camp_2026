@@ -8,11 +8,10 @@ def test_for_show(name, result)
 end
 
 def test_for_search(name, raw_json_data)
-  result_metoda = RubyGemOptions.search_gem_info(name)
-
   if raw_json_data.nil?
-    expect(result_metoda).to eq(1)
+    expect { RubyGemOptions.search_gem_info(name) }.to raise_error(ResponseGem::GemApiError)
   else
+    result_metoda = RubyGemOptions.search_gem_info(name)
     nume_returnate = result_metoda.map { |gem| gem['name'] }
     expect(nume_returnate).to all(include(name))
   end
@@ -34,7 +33,7 @@ def test_for_filter_by_downloads(data, expected_order)
 end
 
 RSpec.describe 'RubyGemOptions' do
-  context 'Method show_gem_info' do
+  context '.show_gem_info' do
     let(:json_data) { File.read(File.join(__dir__, 'fixtures', 'show', 'rails.json')) }
     let(:gem_description) do
       parsed = JSON.parse(json_data)
@@ -45,11 +44,11 @@ RSpec.describe 'RubyGemOptions' do
     end
 
     it 'Returns an error for an invalid gem' do
-      test_for_show('railsss', 1)
+      expect { RubyGemOptions.show_gem_info('railsss') }.to raise_error(ResponseGem::GemApiError)
     end
   end
 
-  context 'Method search_gem_info' do
+  context '.search_gem_info' do
     let(:json_data) { File.read(File.join(__dir__, 'fixtures', 'search', 'rails.json')) }
 
     it 'Gets the list of gems for a valid search term' do
@@ -61,7 +60,7 @@ RSpec.describe 'RubyGemOptions' do
     end
   end
 
-  context 'Method filter_information_by_licence' do
+  context '.filter_information_by_licence' do
     let(:json_data) { File.read(File.join(__dir__, 'fixtures', 'search', 'rails.json')) }
     let(:data) { JSON.parse(json_data) }
 
@@ -74,7 +73,7 @@ RSpec.describe 'RubyGemOptions' do
     end
   end
 
-  context 'Method filter_information_by_downloads' do
+  context '.filter_information_by_downloads' do
     let(:gems_with_symbol_keys) do
       [
         { downloads: 100, name: 'gem_c' },
