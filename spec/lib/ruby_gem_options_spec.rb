@@ -94,4 +94,21 @@ RSpec.describe 'RubyGemOptions' do
       test_for_filter_by_downloads(gems_with_symbol_keys, [9999, 450, 100])
     end
   end
+
+  context 'when both filters are applied' do
+    let(:gems_with_mixed_licences_and_downloads) do
+      [
+        { 'name' => 'gem_a', 'licenses' => ['MIT'], downloads: 100 },
+        { 'name' => 'gem_b', 'licenses' => ['Apache-2.0'], downloads: 9999 },
+        { 'name' => 'gem_c', 'licenses' => ['MIT'], downloads: 450 }
+      ]
+    end
+
+    it 'filters by licence and then sorts by downloads' do
+      filtered = RubyGemOptions.filter_information_by_licence(gems_with_mixed_licences_and_downloads, 'MIT')
+      result = RubyGemOptions.filter_information_by_downloads(filtered)
+
+      expect(result.map { |gem| gem['name'] }).to eq(%w[gem_c gem_a])
+    end
+  end
 end

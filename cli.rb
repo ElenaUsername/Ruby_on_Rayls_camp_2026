@@ -25,7 +25,8 @@ begin
 
     if options[:licence]
       data = RubyGemOptions.filter_information_by_licence(data, options[:licence])
-    elsif options[:downloads]
+    end
+    if options[:downloads]
       data = RubyGemOptions.filter_information_by_downloads(data)
     end
 
