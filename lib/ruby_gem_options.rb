@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+require 'faraday'
+require 'json'
+require 'lightly'
+
+require_relative 'response_gem'
+require_relative 'get_print_info'
+
+class RubyGemOptions
+  @cache = Lightly.new(life: 172_800, dir: 'tmp/cache')
+
+  def self.show_gem_info(gem_name)
+    response = ResponseGem.fetch_url_response("https://rubygems.org/api/v1/gems/#{gem_name}.json")
+
+    data = JSON.parse(response.body)
+    GetPrintInfo.print_name_info(data)
+    data['info']
+  end
+
+  def self.search_gem_info(keyword)
+    cached_data = @cache.get("search_#{keyword}") do
+      response = ResponseGem.fetch_url_response("https://rubygems.org/api/v1/search.json?query=#{keyword}")
+
+      response.body
+    end
+
+    data = JSON.parse(cached_data)
+    raise ResponseGem::GemApiError, "No gems found for '#{keyword}'" if data.empty?
+
+    data
+  end
+
+  def self.filter_information_by_licence(data, license_name)
+    return data || [] if license_name.nil?
+
+    Array(data).select do |gem|
+      gem['licenses']&.any? { |l| l.casecmp?(license_name) }
+    end
+  end
+
+  def self.filter_information_by_downloads(data)
+    data.sort { |a, b| b[:downloads] <=> a[:downloads] }
+  end
+end

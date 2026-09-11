@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+require 'faraday'
+require 'json'
+require 'dotenv/load'
+
+class ResponseGem
+  class GemApiError < StandardError; end
+
+  API_KEY = ENV['RUBYGEMS_API_KEY']
+
+  def self.verify_response_invalid(response)
+    if response.status != 200
+      raise GemApiError, "Error: #{response.status} - #{response.reason_phrase}\n Please check the gem name and try again."
+    end
+    0
+  end
+
+  def self.fetch_url_response(url)
+    response = Faraday.get(url) do |req|
+      req.headers['Authorization'] = "Bearer #{API_KEY}"
+    end
+
+    ResponseGem.verify_response_invalid(response)
+    response
+  end
+end
