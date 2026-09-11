@@ -55,6 +55,14 @@ RSpec.describe 'RubyGemOptions' do
       test_for_search('rails', json_data)
     end
 
+    it 'uses cached search data without making another API request' do
+      cache = RubyGemOptions.instance_variable_get(:@cache)
+      allow(cache).to receive(:get).with('search_rails').and_return(json_data)
+
+      expect(ResponseGem).not_to receive(:fetch_url_response)
+      expect(RubyGemOptions.search_gem_info('rails')).to be_an(Array)
+    end
+
     it 'Returns an error for an invalid gem' do
       test_for_search('railsss', nil)
     end
