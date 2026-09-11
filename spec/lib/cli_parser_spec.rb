@@ -6,8 +6,8 @@ require 'spec_helper'
 def test_parse_options(argv, expected_command, expected_keyword, expected_licence, expected_downloads)
   options = CliParser.parse_options(argv)
 
-  expect(options[:command_show_or_search]).to eq(expected_command)
-  expect(options[:keyord_of_show_or_search]).to eq(expected_keyword)
+  expect(options[:command]).to eq(expected_command)
+  expect(options[:keyword]).to eq(expected_keyword)
   expect(options[:licence]).to eq(expected_licence)
   expect(options[:downloads]).to eq(expected_downloads)
 end
@@ -40,9 +40,13 @@ RSpec.describe CliParser do
     end
 
     it 'prints the error message and usage banner when given an invalid option' do
+      options = nil
+
       expect do
-        CliParser.parse_options(['--search', 'rails', '--bogus-flag'])
+        options = CliParser.parse_options(['--search', 'rails', '--bogus-flag'])
       end.to output(/invalid option/i).to_stdout
+
+      expect(options[:error]).to match(/invalid option/i)
     end
   end
 end

@@ -2,12 +2,12 @@
 
 class CliParser
   def self.parse_options(argv)
-    command_show_or_search = argv.shift
-    keyord_of_show_or_search = argv.shift
+    command = argv.shift
+    keyword = argv.shift
 
     options = {
-      command_show_or_search: command_show_or_search,
-      keyord_of_show_or_search: keyord_of_show_or_search
+      command: command,
+      keyword: keyword
     }
 
     parser = OptionParser.new do |opts|

@@ -8,7 +8,6 @@ class ResponseGem
     if response.status != 200
       puts "Error: #{response.status} - #{response.reason_phrase}\n Please check the gem name and try again."
       return 1
-      exit 1
     end
     0
   end

@@ -7,8 +7,13 @@ require_relative './lib/ruby_gem_options'
 require_relative './lib/cli_parser'
 
 options = CliParser.parse_options(ARGV)
-command = options[:command_show_or_search]
-keyword = options[:keyord_of_show_or_search]
+
+if options[:error]
+  exit 1
+end
+
+command = options[:command]
+keyword = options[:keyword]
 
 if command == 'show'
   puts("***SHOW***\n")
